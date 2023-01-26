@@ -13,6 +13,7 @@ import ar.com.dinamicaonline.cost.models.Parameter;
 import ar.com.dinamicaonline.cost.repositories.ParameterRepository;
 
 
+
 @Service
 public class ParameterServiceImpl implements ParameterService {
 
@@ -28,5 +29,4 @@ public class ParameterServiceImpl implements ParameterService {
         }
         return new ResponseEntity<>(responseBody,  HttpStatus.OK);
     }
-
 }

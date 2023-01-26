@@ -1,5 +1,6 @@
 package ar.com.dinamicaonline.cost.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,55 +15,51 @@ import ar.com.dinamicaonline.cost.repositories.ExtractionPlacesRepository;
 
 @Service
 public class ExtractionPlacesServiceImpl implements ExtractionPlacesService{
+    
     @Autowired
     private ExtractionPlacesRepository extractionPlacesRepository;
 
-
     @Override
     public ResponseEntity<?> getDepositMoney() {
-        Map<String, Object> responseBody = new HashMap<>();
         List<ExtractionPlaces> extractionPlaces = extractionPlacesRepository.findExtractionPlaces();
-        for (ExtractionPlaces extPlace : extractionPlaces) {
-            responseBody.put("name", extPlace.getName());
-            responseBody.put("minDepositAmount", extPlace.getMinDepositAmount());
-            responseBody.put("maxDepositAmount", extPlace.getMaxDepositAmount());
-            responseBody.put("minDepositCommision", extPlace.getMinDepositCommision());
-            responseBody.put("depositCommisionPercent", extPlace.getDepositCommisionPercent());
-            responseBody.put("maxDepositCommisionZero", extPlace.getMaxDepositCommisionZero());
-            responseBody.put("maxDepositCount", extPlace.getMaxDepositCount());
+        List<Map<String, Object>> responseBodyList = new ArrayList<Map<String, Object>>();
+        for(int i = 0; i<extractionPlaces.size(); i++){
+            Map<String, Object> resBody = new HashMap<>();
+            responseBodyList.add(resBody);
         }
+        Map<String, Object> responseBody = new HashMap<>();
+        for (int i = 0; i<extractionPlaces.size(); i++) {
+            responseBodyList.get(i).put("name", extractionPlaces.get(i).getName());
+            responseBodyList.get(i).put("minDepositAmount", extractionPlaces.get(i).getMinDepositAmount());
+            responseBodyList.get(i).put("maxDepositAmount", extractionPlaces.get(i).getMaxDepositAmount());
+            responseBodyList.get(i).put("minDepositCommision", extractionPlaces.get(i).getMinDepositCommision());
+            responseBodyList.get(i).put("depositCommisionPercent", extractionPlaces.get(i).getDepositCommisionPercent());
+            responseBodyList.get(i).put("maxDepositCommisionZero", extractionPlaces.get(i).getMaxDepositCommisionZero());
+            responseBodyList.get(i).put("maxDepositCount", extractionPlaces.get(i).getMaxDepositCount());
+        }
+        responseBody.put("places", responseBodyList);
         return new ResponseEntity<>(responseBody,  HttpStatus.OK);
     }
-
-    /* @Override
-    public ResponseEntity<?> getCashWithdrawal() {
-        Map<String, Object> responseBody = new HashMap<>();
-        List<ExtractionPlaces> extractionPlaces = extractionPlacesRepository.findExtractionPlaces();
-        for (ExtractionPlaces extPlace : extractionPlaces) {
-            responseBody.put("name", extPlace.getName());
-            responseBody.put("minExtractionAmount", extPlace.getMinExtractionAmount());
-            responseBody.put("minExtractionCommision", extPlace.getMinExtractionCommision());
-            responseBody.put("extractionCommisionPercent", extPlace.getExtractionCommisionPercent());
-            responseBody.put("maxExtractionAmount", extPlace.getMaxExtractionAmount());
-            responseBody.put("maxExtractionCommisionZero", extPlace.getMaxExtractionCommisionZero());
-            responseBody.put("maxExtractionCount", extPlace.getMaxExtractionCount());
-        }
-        return new ResponseEntity<>(responseBody,  HttpStatus.OK);
-    } */
-
+    
     @Override
     public ResponseEntity<?> getCashWithdrawal() {
-        Map<String, Object> responseBody = new HashMap<>();
         List<ExtractionPlaces> extractionPlaces = extractionPlacesRepository.findExtractionPlaces();
-        for (int i = 0; i<extractionPlaces.size(); i++ ) {
-            responseBody.put("name", extractionPlaces.get(i).getName());
-            responseBody.put("minExtractionAmount", extractionPlaces.get(i).getMinExtractionAmount());
-            responseBody.put("minExtractionCommision", extractionPlaces.get(i).getMinExtractionCommision());
-            responseBody.put("extractionCommisionPercent", extractionPlaces.get(i).getExtractionCommisionPercent());
-            responseBody.put("maxExtractionAmount", extractionPlaces.get(i).getMaxExtractionAmount());
-            responseBody.put("maxExtractionCommisionZero", extractionPlaces.get(i).getMaxExtractionCommisionZero());
-            responseBody.put("maxExtractionCount", extractionPlaces.get(i).getMaxExtractionCount());
+        List<Map<String, Object>> responseBodyList = new ArrayList<Map<String, Object>>();
+        for(int i = 0; i<extractionPlaces.size(); i++){
+            Map<String, Object> resBody = new HashMap<>();
+            responseBodyList.add(resBody);
         }
+        Map<String, Object> responseBody = new HashMap<>();
+        for (int i = 0; i<extractionPlaces.size(); i++) {
+            responseBodyList.get(i).put("name", extractionPlaces.get(i).getName());
+            responseBodyList.get(i).put("minExtractionAmount", extractionPlaces.get(i).getMinExtractionAmount());
+            responseBodyList.get(i).put("minExtractionCommision", extractionPlaces.get(i).getMinExtractionCommision());
+            responseBodyList.get(i).put("extractionCommisionPercent", extractionPlaces.get(i).getExtractionCommisionPercent());
+            responseBodyList.get(i).put("maxExtractionAmount", extractionPlaces.get(i).getMaxExtractionAmount());
+            responseBodyList.get(i).put("maxExtractionCommisionZero", extractionPlaces.get(i).getMaxExtractionCommisionZero());
+            responseBodyList.get(i).put("maxExtractionCount", extractionPlaces.get(i).getMaxExtractionCount());
+        }
+        responseBody.put("places", responseBodyList);
         return new ResponseEntity<>(responseBody,  HttpStatus.OK);
     }
     

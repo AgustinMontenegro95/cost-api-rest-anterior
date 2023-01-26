@@ -2,7 +2,6 @@ package ar.com.dinamicaonline.cost.models;
 
 import java.util.Date;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,8 +17,6 @@ public class Parameter {
     private String parameterGroup;
     private String parameterName;
     private String parameterDescription;
-
-    @Column(name = "ParameterType")
     private String parameterType;
     private String parameterValue;
     private String userCreate;
